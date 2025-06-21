@@ -1,12 +1,12 @@
-# Build Stage
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+# Build stage
+FROM mcr.microsoft.com/dotnet/sdk:9.0-preview AS build
 WORKDIR /src
 COPY . .
 RUN dotnet restore
 RUN dotnet publish -c Release -o /app/publish
 
-# Runtime Stage
-FROM mcr.microsoft.com/dotnet/aspnet:6.0
+# Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-preview
 WORKDIR /app
 COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "DatingApp.API.dll"]
+ENTRYPOINT ["dotnet", "DatingApp.API.dll"]  # Use your DLL name here
