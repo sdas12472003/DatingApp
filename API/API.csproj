@@ -4,18 +4,20 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>preview</LangVersion> <!-- Add this if you're using C# 13 features -->
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="CloudinaryDotNet" Version="1.27.5" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.3">
+      <PrivateAssets>all</PrivateAssets> <!-- Prevent it from being published -->
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.8.0" />
   </ItemGroup>
-
-  
 
 </Project>
