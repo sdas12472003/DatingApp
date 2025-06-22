@@ -23,27 +23,59 @@ public static class IdentityServiceExtensions
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(options=>
         {
-            var tokenKey = config["TokenKey"] ?? throw new Exception("Token not found");
-            options.TokenValidationParameters = new TokenValidationParameters
+            // var tokenKey = config["TokenKey"] ?? throw new Exception("Token not found");
+            // options.TokenValidationParameters = new TokenValidationParameters
+            // {
+            //     ValidateIssuerSigningKey = true,
+            //     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey)),
+            //     ValidateIssuer = false,
+            //     ValidateAudience = false
+            // };
+            // options.Events = new JwtBearerEvents
+            // {
+            //     OnMessageReceived = context =>
+            //     {
+            //         var accessToken = context.Request.Query["access_token"];
+            //         var path = context.HttpContext.Request.Path;
+            //         if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+            //         {
+            //             context.Token = accessToken;
+            //         }
+            //         return Task.CompletedTask;
+            //     }
+            // };
+            var tokenKey = Environment.GetEnvironmentVariable("TokenKey") ?? config["TokenKey"];
+
+        if (string.IsNullOrWhiteSpace(tokenKey) || tokenKey.Length < 32)
+            throw new Exception("TokenKey is missing or too short. Must be at least 32 characters.");
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
+
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
             {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey)),
-                ValidateIssuer = false,
-                ValidateAudience = false
-            };
-            options.Events = new JwtBearerEvents
-            {
-                OnMessageReceived = context =>
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    var accessToken = context.Request.Query["access_token"];
-                    var path = context.HttpContext.Request.Path;
-                    if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
                     {
-                        context.Token = accessToken;
+                        var accessToken = context.Request.Query["access_token"];
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) && path.StartsWithSegments("/hubs"))
+                        {
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
                     }
-                    return Task.CompletedTask;
-                }
-            };
+                };
+            });
+
         });
 
         services.AddAuthorizationBuilder()
