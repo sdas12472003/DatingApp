@@ -1,4 +1,23 @@
+# services:
+#   sql:
+#     image: mcr.microsoft.com/mssql/server:2022-latest
+#     container_name: sql
+#     environment:
+#       ACCEPT_EULA: "Y"
+#       MSSQL_SA_PASSWORD: "Password@1"
+#     platform: "linux/amd64"
+#     ports:
+#       - "1433:1433"
+
+
 services:
+  api:
+    build:
+      context: .
+      dockerfile: API/Dockerfile
+    environment:
+      - TokenKey=mysupersecuretokenkey@1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL
+
   sql:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sql
