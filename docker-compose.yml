@@ -17,6 +17,10 @@ services:
       dockerfile: API/Dockerfile
     environment:
       - TokenKey=mysupersecuretokenkey@1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKL
+    depends_on:
+      - sql
+    ports:
+      - "8080:80"
 
   sql:
     image: mcr.microsoft.com/mssql/server:2022-latest

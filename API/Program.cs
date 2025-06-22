@@ -57,7 +57,6 @@ using API.Data;
 using API.Entities;
 using API.Extensions;
 using API.SignalR;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -69,29 +68,38 @@ builder.Services.AddIdentityServices(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+// Global exception handling middleware
 app.UseMiddleware<ExceptionMiddleware>();
 
+// CORS: allow local and deployed frontends
 app.UseCors(x => x
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    // .WithOrigins("http://localhost:4200", "https://localhost:4200"));
-    .WithOrigins("https://datingapp-2i22.onrender.com", "http://localhost:4200", "https://localhost:4200"));
+    .WithOrigins(
+        "http://localhost:4200",
+        "https://localhost:4200",
+        "https://datingapp-2i22.onrender.com"
+    )
+);
 
-
+// Auth middleware
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Serve Angular static files
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
+// API controllers and SignalR hubs
 app.MapControllers();
 app.MapHub<PresenceHub>("hubs/presence");
 app.MapHub<MessageHub>("hubs/message");
+
+// Fallback to index.html for Angular routes
 app.MapFallbackToController("Index", "Fallback");
 
-// Apply migrations and seed data
+// Migration + seeding logic
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 
@@ -103,15 +111,11 @@ try
 
     await context.Database.MigrateAsync();
 
-    // SQLite doesn't support square brackets in table names
-    if (context.Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
-    {
-        await context.Database.ExecuteSqlRawAsync("DELETE FROM Connections");
-    }
-    else
-    {
-        await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
-    }
+    // Clear active connections table (startup cleanup)
+    var sql = context.Database.ProviderName!.Contains("Sqlite")
+        ? "DELETE FROM Connections"
+        : "DELETE FROM [Connections]";
+    await context.Database.ExecuteSqlRawAsync(sql);
 
     await Seed.SeedUsers(userManager, roleManager);
 }
