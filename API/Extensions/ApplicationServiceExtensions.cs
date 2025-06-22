@@ -49,7 +49,7 @@ public static class ApplicationServiceExtensions
         // ✅ Use SQLite instead of SQL Server
         services.AddDbContext<DataContext>(opt =>
         {
-            opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
+            opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
         });
 
         services.AddCors();
