@@ -76,7 +76,9 @@ app.UseCors(x => x
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
-    .WithOrigins("http://localhost:4200", "https://localhost:4200"));
+    // .WithOrigins("http://localhost:4200", "https://localhost:4200"));
+    .WithOrigins("https://datingapp-2i22.onrender.com", "http://localhost:4200", "https://localhost:4200"));
+
 
 app.UseAuthentication();
 app.UseAuthorization();
