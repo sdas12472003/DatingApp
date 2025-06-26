@@ -19,14 +19,19 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy only the .csproj first to leverage Docker caching
+# Copy only the .csproj file first for efficient caching
 COPY API/API.csproj ./API/
+
+# Restore dependencies
 RUN dotnet restore ./API/API.csproj
 
-# Now copy the full source
+# Copy the rest of the source code
 COPY . .
 
+# Set working directory to where your Program.cs is
 WORKDIR /src/API
+
+# Publish the project
 RUN dotnet publish -c Release -o /app/publish
 
 
@@ -34,9 +39,10 @@ RUN dotnet publish -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
+# Copy published app from build container
 COPY --from=build /app/publish .
 
-# Include production config (if needed by your app)
+# Optional: Include production config
 COPY API/appsettings.Production.json ./appsettings.Production.json
 
 ENTRYPOINT ["dotnet", "API.dll"]
