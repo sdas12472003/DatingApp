@@ -15,28 +15,28 @@
 # COPY API/appsettings.Production.json ./appsettings.Production.json
 
 # ENTRYPOINT ["dotnet", "API.dll"]
-# Build Stage
+# ------------ Build Stage ------------
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
-# Copy only csproj first (improves Docker caching)
+# Copy only the .csproj first to leverage Docker caching
 COPY API/API.csproj ./API/
 RUN dotnet restore ./API/API.csproj
 
-# Now copy the rest of the source
+# Now copy the full source
 COPY . .
 
-WORKDIR /app/API
+WORKDIR /src/API
 RUN dotnet publish -c Release -o /app/publish
 
-# Runtime Stage
+
+# ------------ Runtime Stage ------------
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
-# Copy published output
 COPY --from=build /app/publish .
 
-# Copy Production config file
+# Include production config (if needed by your app)
 COPY API/appsettings.Production.json ./appsettings.Production.json
 
 ENTRYPOINT ["dotnet", "API.dll"]
