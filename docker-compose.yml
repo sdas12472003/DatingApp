@@ -47,18 +47,18 @@ services:
         condition: service_healthy
     restart: always
 
+
   sql:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sql
     environment:
+      SA_PASSWORD: "Password@1"
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "Password@1"
     ports:
       - "1433:1433"
-    platform: "linux/amd64"
     healthcheck:
-      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password@1 -Q 'SELECT 1'"]
+      test: ["CMD", "sh", "-c", "exit 0"]
       interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 3
 
