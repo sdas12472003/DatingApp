@@ -24,9 +24,36 @@
 /* No Messages Heading */
 h3.mt-3 {
   text-align: center;
-  color: #999;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.75rem;
+
+  /* Gradient background */
+  background: linear-gradient(270deg, #ff0080, #2807ff, #de37ff, #00ffbb);
+  background-size: 400% 400%;
+
+  /* Clip background to text */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  /* Animation */
+  animation: gradientShift 5s ease infinite;
 }
+
+/* Animation keyframes */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 /* Message Table */
 .table {

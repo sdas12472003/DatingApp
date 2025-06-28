@@ -2,10 +2,42 @@
 .text-center.mt-3 h2 {
   font-size: 2.2rem;
   font-weight: 600;
-  color: #ff3366;
   margin-top: 20px;
   font-family: 'Poppins', sans-serif;
+
+  /* Fresh animated gradient */
+  background: linear-gradient(
+    270deg,
+    #b700ff,   /* purple */
+    #00b3ff,   /* teal green */
+    #ffb700,   /* blue sky */
+    #ff0084    /* gold yellow */
+  );
+  background-size: 400% 400%;
+
+  /* Clip text to background */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  /* Smooth animation every second */
+  animation: h2ColorFlow 5s ease infinite;
 }
+
+/* Keyframes for flowing gradient */
+@keyframes h2ColorFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 /* Filter Form Styles */
 form.d-flex {

@@ -2,10 +2,36 @@
 .text-center.mt-3 h2 {
   font-size: 2.2rem;
   font-weight: 600;
-  color: #000000;
   margin-bottom: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  /* Gradient background */
+  background: linear-gradient(270deg, #fe003b, #ff4b2b, #ff2a8d, #6a6ff5);
+  background-size: 400% 400%;
+
+  /* Clip background to text */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+
+  /* Animate every second */
+  animation: h2GradientShift 5s ease infinite;
 }
+
+/* Keyframes for the animation */
+@keyframes h2GradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 /* Toggle Button Group Styling */
 .btn-group .btn {
