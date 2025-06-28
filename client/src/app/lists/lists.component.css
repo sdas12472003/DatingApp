@@ -1,0 +1,83 @@
+/* Page Title */
+.text-center.mt-3 h2 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Toggle Button Group Styling */
+.btn-group .btn {
+  border-radius: 30px;
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease-in-out;
+  background-color: #ffffff;
+  border-color: #01bdd6;
+  color: #007c91;
+}
+
+.btn-group .btn:hover,
+.btn-group .btn.active,
+.btn-group .btn:focus {
+  background-color: #01bdd6;
+  color: white;
+  border-color: #00acc1;
+  box-shadow: 0 4px 12px rgba(0, 188, 212, 0.3);
+}
+
+/* Member Grid */
+.row.mt-3 {
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.row.mt-3 .col-2 {
+  flex: 0 0 auto;
+  width: 16%;
+  max-width: 200px;
+}
+
+/* Member Card Styling */
+app-member-card {
+  display: block;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+app-member-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Pagination Styling */
+.pagination {
+  margin-top: 30px;
+}
+
+.pagination li a,
+.pagination li span {
+  border-radius: 8px !important;
+  margin: 0 3px;
+  padding: 8px 14px;
+  font-weight: 500;
+  color: #333;
+  border-color: #ddd !important;
+  transition: all 0.3s ease;
+}
+
+.pagination li.active a,
+.pagination li a:hover {
+  background-color: #ff3366 !important;
+  color: white !important;
+  border-color: #ff3366 !important;
+}
+
+.pagination li.disabled span {
+  color: #ccc;
+  cursor: not-allowed;
+}

@@ -1,4 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files
 .tab-panel {
     border: 1px solid #ddd;
     padding: 10px;
@@ -44,4 +44,71 @@
     border-top: 1px solid #eee;
     padding: 15px 0;
   }
-  
+   */
+   /* General tab panel container */
+.tab-panel {
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #fafafa;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Nav tabs: general styles */
+.member-tabset > .nav-tabs {
+  border-bottom: 2px solid #ddd;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+/* Tab hover & open state */
+.nav-tabs > li.open,
+.member-tabset > .nav-tabs > li:hover {
+  border-bottom: 4px solid #f48fb1; /* Soft pink hover */
+}
+
+.member-tabset > .nav-tabs > li.open > a,
+.member-tabset > .nav-tabs > li:hover > a {
+  background: transparent !important;
+  color: #212121;
+  transition: color 0.3s ease;
+}
+
+.member-tabset > .nav-tabs > li.open > a > i,
+.member-tabset > .nav-tabs > li:hover > a > i {
+  color: #757575;
+  transition: color 0.3s ease;
+}
+
+.member-tabset > .nav-tabs > li.open .dropdown-menu,
+.member-tabset > .nav-tabs > li:hover .dropdown-menu {
+  margin-top: 0;
+}
+
+/* Active tab */
+.member-tabset > .nav-tabs > li.active {
+  border-bottom: 4px solid #ff5722; /* Deep orange */
+  position: relative;
+}
+
+.member-tabset > .nav-tabs > li.active > a {
+  border: none !important;
+  color: #212121;
+  font-weight: 600;
+  background-color: #ffffff !important;
+}
+
+.member-tabset > .nav-tabs > li.active > a > i {
+  color: #333333;
+}
+
+/* Tab content area */
+.member-tabset > .tab-content {
+  margin-top: -1px;
+  background-color: #9735ff4f;
+  border-top: 1px solid #e0e0e0;
+  padding: 20px;
+  border-radius: 0 0 8px 8px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.02);
+}

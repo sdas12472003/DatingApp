@@ -1,10 +1,131 @@
-.dropdown-toggle,.dropdown-item
-{
-    cursor:pointer;
+/* ------------------ Base Font Setup ------------------ */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-img
-{
-    max-height:50px;
-    border:2px solid white;
-    display: inline;
+
+/* ------------------ Navbar ------------------ */
+.navbar {
+  background-color: #0d6efd;
+  padding: 0.8rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ------------------ Brand ------------------ */
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff !important;
+  letter-spacing: 0.5px;
+}
+
+/* ------------------ Nav Links ------------------ */
+.nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ------------------ Avatar Image ------------------ */
+img {
+  max-height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+  display: inline-block;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+
+img:hover {
+  transform: scale(1.04);
+}
+
+/* ------------------ Dropdown Toggle ------------------ */
+.dropdown-toggle {
+  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.dropdown-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* ------------------ Dropdown Menu ------------------ */
+.dropdown-menu {
+  min-width: 180px;
+  padding: 0;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  background-color: #f5d97b;
+  animation: fadeIn 0.2s ease-in-out;
+}
+/* Highlight dropdown toggle when open */
+.dropdown-toggle[aria-expanded="true"] {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  box-shadow: 0 0 0 0.15rem rgba(255, 255, 255, 0.25);
+}
+
+
+/* ------------------ Dropdown Items ------------------ */
+.dropdown-item {
+  font-size: 0.95rem;
+  padding: 12px 18px;
+  color: #333;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+  color: #000;
+}
+
+.dropdown-divider {
+  margin: 0;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ------------------ Login Input Style ------------------ */
+form.d-flex input.form-control {
+  border-radius: 30px;
+  font-size: 0.9rem;
+  padding: 8px 16px;
+}
+
+form.d-flex .btn-success {
+  border-radius: 30px;
+  font-weight: 500;
+  padding: 8px 20px;
+}
+
+/* ------------------ Animation ------------------ */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

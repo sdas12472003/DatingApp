@@ -2,3 +2,135 @@
 {
     max-height:50px;
 }
+/* Toggle Button Group */
+.btn-group .btn {
+  border-radius: 30px;
+  margin-right: 8px;
+  padding: 8px 20px;
+  font-weight: 500;
+  background-color: #e0f7fa;
+  color: #007c91;
+  border-color: #00acc1;
+  transition: all 0.3s ease;
+}
+
+.btn-group .btn:hover,
+.btn-group .btn.active {
+  background-color: #00bcd4;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 188, 212, 0.2);
+}
+
+/* No Messages Heading */
+h3.mt-3 {
+  text-align: center;
+  color: #999;
+  font-weight: 500;
+}
+
+/* Message Table */
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+  background-color: #f9fafb;
+}
+
+.table th {
+  font-weight: 600;
+  color: #555;
+  padding: 12px;
+  font-size: 0.95rem;
+}
+
+.table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f7ff;
+}
+
+.table td {
+  vertical-align: middle;
+  padding: 14px;
+  font-size: 0.95rem;
+}
+
+/* User Image */
+.rounded-circle {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Message Username Text */
+strong {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Delete Button */
+.btn-danger {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 20px;
+  background-color: #ff4d4d;
+  border: none;
+  transition: background-color 0.3s;
+}
+
+.btn-danger:hover {
+  background-color: #d63031;
+}
+
+/* Pagination Styling */
+.pagination {
+  margin: 30px 0;
+}
+
+.pagination li a,
+.pagination li span {
+  border-radius: 8px !important;
+  margin: 0 4px;
+  padding: 8px 14px;
+  font-weight: 500;
+  color: #333;
+  border-color: #ddd !important;
+  transition: all 0.3s ease;
+}
+
+.pagination li.active a,
+.pagination li a:hover {
+  background-color: #ff3366 !important;
+  color: white !important;
+  border-color: #ff3366 !important;
+}
+
+.pagination li.disabled span {
+  color: #aaa;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .btn-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.85rem;
+  }
+
+  .rounded-circle {
+    width: 32px;
+    height: 32px;
+  }
+}

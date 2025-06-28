@@ -1,4 +1,4 @@
-.card:hover img {
+/* .card:hover img {
     transform : scale(1.2,1.2);
     transition-duration: 500ms;
     transition-timing-function: ease-out;
@@ -39,4 +39,76 @@
 .is-online{
     animation: fa-blink 1.5s linear infinite;
     color:rgb(1,189,42);
+} */
+ /* Card Image Zoom on Hover */
+.card:hover img {
+  transform: scale(1.1);
+  transition: transform 0.4s ease-in-out;
+}
+
+.card img {
+  transform: scale(1);
+  transition: transform 0.4s ease-in-out;
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Wrapper for image and overlay icons */
+.card-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Overlay icons initially hidden */
+.member-icons {
+  position: absolute;
+  bottom: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: all 0.4s ease-in-out;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 8px 12px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Show overlay icons on hover */
+.card-img-wrapper:hover .member-icons {
+  bottom: 10px;
+  opacity: 1;
+}
+
+/* Smooth all element transitions */
+.animate {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Online pulse animation */
+@keyframes fa-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.is-online {
+  animation: fa-blink 1.5s infinite linear;
+  color: #0ae439;
+  font-size: 1rem;
+}
+
+/* Optional: Card styling for consistent layout */
+.card {
+  border: none;
+  background: #dadada;
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.1);
 }

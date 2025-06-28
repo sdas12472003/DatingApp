@@ -1,0 +1,83 @@
+/* General container spacing */
+.container {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333;
+}
+
+/* Centered content */
+.container h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff3366;
+    margin-bottom: 20px;
+}
+
+.container .lead {
+    font-size: 1.25rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Button styles */
+.btn {
+    padding: 12px 24px;
+    font-size: 1.1rem;
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: #ff3366;
+    border-color: #ff3366;
+}
+
+.btn-primary:hover {
+    background-color: #e62e5c;
+    border-color: #e62e5c;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+/* Register form card styling */
+app-register {
+    display: block;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #cbca82;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .container h1 {
+        font-size: 2.2rem;
+    }
+
+    .container .lead {
+        font-size: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

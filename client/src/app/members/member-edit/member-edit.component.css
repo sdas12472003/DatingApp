@@ -1,4 +1,4 @@
-.img-thumbnail
+/* .img-thumbnail
 {
     margin:25px;
     width:85%;
@@ -12,4 +12,89 @@
     padding: 10px 15px;
     background-color: #fff;
     border-top: none;
+} */
+ /* ========== Image Thumbnail ========== */
+.img-thumbnail {
+  margin: 20px auto;
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  transition: transform 0.4s ease, box-shadow 0.2s ease;
+  
+  display: block;
+}
+
+.img-thumbnail:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  
+}
+
+/* ========== Card Body ========== */
+.card-body {
+  padding: 24px 30px;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #333;
+  background: linear-gradient(145deg, #72ffff, #ffffff);
+  border-radius: 0 0 16px 16px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+/* Optional Headings inside .card-body */
+.card-body h5, .card-body h6 {
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+/* ========== Card Footer ========== */
+.card-footer {
+  padding: 16px 30px;
+  background-color: #ffffbb;
+  border-top: 1px solid #e0e0e0;
+  border-radius: 0 0 16px 16px;
+  font-size: 0.95rem;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.card-footer:hover {
+  background-color: #f8f9fa;
+}
+
+/* Optional Buttons in Footer */
+.card-footer .btn {
+  border-radius: 25px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.card-footer .btn-primary {
+  background-color: #ff3366;
+  border: none;
+  color: #fff;
+}
+
+.card-footer .btn-primary:hover {
+  background-color: #e62e5c;
+}
+
+/* Optional link */
+.card-footer a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.card-footer a:hover {
+  color: #0056b3;
 }
