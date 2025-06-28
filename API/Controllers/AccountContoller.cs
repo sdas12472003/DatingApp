@@ -74,6 +74,7 @@ public class AccountController(UserManager<AppUser> userManager,ITokenService to
             Gender = user.Gender
         };
     }
+    
 
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
