@@ -45,7 +45,7 @@ form.d-flex {
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-  background: #ffffff;
+  background: #ede7e7;
   border-radius: 12px;
   padding: 20px 25px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
@@ -103,7 +103,7 @@ form .btn-primary:hover {
 form .btn-info {
   background-color: #17a2b8;
   border: none;
-  color: white;
+  color: rgb(255, 255, 255);
 }
 
 form .btn-info:hover {
@@ -149,6 +149,7 @@ form .btn-info:hover {
 
   form.d-flex {
     flex-direction: column;
+    
     gap: 12px;
   }
 }
@@ -172,7 +173,7 @@ form .btn-info:hover {
 .pagination li.active a,
 .pagination li a:hover {
   background-color: #ff3366 !important;
-  color: white !important;
+  color: rgb(255, 255, 255) !important;
   border-color: #ff3366 !important;
 }
 

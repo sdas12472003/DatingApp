@@ -36,14 +36,14 @@
   font-size: 1rem;
   color: #333;
   line-height: 1.6;
-  background-color: #fafafa;
+  background-color: #e6ffc6;
   border-radius: 0 0 10px 10px;
 }
 
 /* Card Footer Styling */
 .card-footer {
   padding: 12px 20px;
-  background-color: #ffffff;
+  background-color: #d2a9dc;
   border-top: 1px solid #eaeaea;
   border-radius: 0 0 10px 10px;
   display: flex;
@@ -52,3 +52,4 @@
   font-size: 0.95rem;
   color: #666;
 }
+

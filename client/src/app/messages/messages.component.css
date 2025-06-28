@@ -59,7 +59,7 @@ h3.mt-3 {
 .table {
   border-radius: 12px;
   overflow: hidden;
-  background-color: #fff;
+  background-color: #ffffff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
@@ -76,7 +76,7 @@ h3.mt-3 {
 }
 
 .table tbody tr {
-  transition: background-color 0.2s ease;
+  transition: background-color 0.1s ease;
 }
 
 .table tbody tr:hover {
@@ -137,7 +137,7 @@ strong {
 .pagination li.active a,
 .pagination li a:hover {
   background-color: #ff3366 !important;
-  color: white !important;
+  color: rgb(255, 255, 255) !important;
   border-color: #ff3366 !important;
 }
 
