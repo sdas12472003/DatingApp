@@ -47,12 +47,36 @@
    */
    /* General tab panel container */
 /* Optional: Apply this to the page wrapper or body for full effect */
-body {
-  background: linear-gradient(to right, #fff674, #ff83ad); /* Light cyan to pink */
+/* body {
+  background: linear-gradient(to right, #fff674,rgb(190, 174, 215), #ff83ad);
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', sans-serif;
+} */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  animation: gradientChange 30s infinite alternate;
+  background-size: 400% 400%;
 }
+
+/* Keyframes to change gradient colors */
+@keyframes gradientChange {
+  0% {
+    background: linear-gradient(to right, #fff674, #beaed7, #ff83ad);
+  }
+  33% {
+    background: linear-gradient(to right, #a8edea, #fed6e3, #ffc3a0);
+  }
+  66% {
+    background: linear-gradient(to right, #fad0c4, #ffd1ff, #a1c4fd);
+  }
+  100% {
+    background: linear-gradient(to right, #ffecd2, #fcb69f, #ff9a9e);
+  }
+}
+
 
 /* Main tab panel background */
 .tab-panel {
