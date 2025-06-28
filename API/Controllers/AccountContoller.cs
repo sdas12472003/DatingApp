@@ -12,34 +12,69 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers;
 public class AccountController(UserManager<AppUser> userManager,ITokenService tokenService,IMapper mapper) :BaseApiController
 {
-    [HttpPost("register")]//account/register
+    // [HttpPost("register")]//account/register
+    // public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
+    // {
+    //     if(await UserExists(registerDto.Username))
+    //     {
+    //         return BadRequest("Username is taken");
+    //     }
+
+    //     // using var hmac=new HMACSHA512();
+    //     var user=mapper.Map<AppUser>(registerDto);
+    //     user.UserName=registerDto.Username.ToLower();
+    //     // user.PasswordHash=hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
+    //     // user.PasswordSalt=hmac.Key;
+
+    //     var result = await userManager.CreateAsync(user, registerDto.Password);
+    //     if (!result.Succeeded) return BadRequest(result.Errors);
+
+    //     // context.Users.Add(user);
+    //     // await context.SaveChangesAsync();
+    //     return new UserDto
+    //     {
+    //         Username = user.UserName,
+    //         Token =await tokenService.CreateToken(user),
+    //         KnownAs = user.KnownAs,
+    //         Gender = user.Gender
+
+    //     };
+    // }
+    [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
     {
-        if(await UserExists(registerDto.Username))
+        if (!ModelState.IsValid)
         {
-            return BadRequest("Username is taken");
+            var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                        .Select(e => e.ErrorMessage)
+                                        .ToArray();
+            return BadRequest(errors); // returns flat array
         }
-        
-        // using var hmac=new HMACSHA512();
-        var user=mapper.Map<AppUser>(registerDto);
-        user.UserName=registerDto.Username.ToLower();
-        // user.PasswordHash=hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password));
-        // user.PasswordSalt=hmac.Key;
+
+        if (await UserExists(registerDto.Username))
+        {
+            return BadRequest(new[] { "Username is taken" });
+        }
+
+        var user = mapper.Map<AppUser>(registerDto);
+        user.UserName = registerDto.Username.ToLower();
 
         var result = await userManager.CreateAsync(user, registerDto.Password);
-        if (!result.Succeeded) return BadRequest(result.Errors);
-        
-        // context.Users.Add(user);
-        // await context.SaveChangesAsync();
+        if (!result.Succeeded)
+        {
+            var identityErrors = result.Errors.Select(e => e.Description).ToArray();
+            return BadRequest(identityErrors);
+        }
+
         return new UserDto
         {
             Username = user.UserName,
-            Token =await tokenService.CreateToken(user),
+            Token = await tokenService.CreateToken(user),
             KnownAs = user.KnownAs,
             Gender = user.Gender
-
         };
     }
+
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
     {
