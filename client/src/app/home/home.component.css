@@ -8,14 +8,14 @@
 
 /* Centered content */
 .container h1 {
-    font-size: 3rem;
+    font-size: 4rem;
     font-weight: bold;
-    color: #ff3366;
+    color: #3e3d39;
     margin-bottom: 20px;
 }
 
 .container .lead {
-    font-size: 1.25rem;
+    font-size: 2rem;
     color: #000000;
     margin-bottom: 30px;
 }
@@ -26,7 +26,7 @@
     font-size: 1.1rem;
     border-radius: 30px;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.313);
 }
 
 .btn-primary {
@@ -81,3 +81,59 @@ app-register {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+.animated-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ff3366;
+  margin-bottom: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+}
+
+.animated-title span {
+  display: inline-block;
+  position: relative;
+  opacity: 0;
+  animation: scatterIn 1s forwards;
+  animation-delay: calc(var(--index) * 0.1s);
+}
+
+
+@keyframes scatterIn {
+  0% {
+    opacity: 0;
+    transform: translate(
+      calc(var(--rand-x, 0px)),
+      calc(var(--rand-y, 0px))
+    ) rotate(360deg) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+}
+
+.scattered span {
+  animation: scatterOut 1s forwards;
+  animation-delay: calc(var(--index) * 0.1s);
+}
+
+@keyframes scatterOut {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(
+      calc(var(--rand-x, 0px)),
+      calc(var(--rand-y, 0px))
+    ) rotate(-360deg) scale(0.3);
+  }
+}
+
+ 
+ 

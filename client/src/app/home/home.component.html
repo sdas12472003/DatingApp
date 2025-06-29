@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <div style="text-align:center;">
         @if(!registerMode)
         {
@@ -21,4 +21,44 @@
         }
     </div>
 
+</div> -->
+<div class="container mt-5">
+  <div style="text-align:center;">
+    <div *ngIf="!registerMode">
+
+      <h1 class="animated-title" #animatedContainer>
+        <span *ngFor="let char of animatedTextArray">
+          {{ char === ' ' ? '\u00A0' : char }}
+        </span>
+      </h1>
+
+     
+      <p class="lead">
+        Come on in to view your matches... all you need to do is sign up!
+      </p>
+
+ 
+      <div class="text-center">
+        <button (click)="registerToggle()" class="btn btn-primary btn-lg me-2">
+          Register
+        </button>
+        <button class="btn btn-info btn-lg me-2">Learn more</button>
+      </div>
+    </div>
+
+ 
+    <div *ngIf="registerMode">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-4">
+            <app-register (cancelRegister)="cancelRegisterMode($event)">
+            </app-register>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
