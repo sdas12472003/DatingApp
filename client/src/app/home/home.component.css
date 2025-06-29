@@ -55,9 +55,9 @@ app-register {
     display: block;
     padding: 30px;
     border-radius: 20px;
-    background-color: #cbca82;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.5s ease-in-out;
+    background-color: #ffffb0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+    animation: fadeIn 0.2s ease-in-out;
 }
 
 /* Responsive tweaks */
