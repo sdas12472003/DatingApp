@@ -2,17 +2,16 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy csproj
-COPY API/API.csproj ./API/
+# Copy csproj (it's in repo root, not inside /API!)
+COPY API.csproj .
 
 # Restore
-RUN dotnet restore ./API/API.csproj
+RUN dotnet restore API.csproj
 
-# Copy everything
+# Copy everything else
 COPY . .
 
 # Publish
-WORKDIR /src/API
 RUN dotnet publish -c Release -o /app/publish
 
 
