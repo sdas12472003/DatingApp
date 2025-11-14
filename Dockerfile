@@ -2,13 +2,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy only the csproj for restore caching
+# Copy csproj
 COPY API/API.csproj ./API/
 
 # Restore
 RUN dotnet restore ./API/API.csproj
 
-# Copy everything else
+# Copy everything
 COPY . .
 
 # Publish
@@ -20,12 +20,11 @@ RUN dotnet publish -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
-# Render provides the PORT dynamically
 ENV ASPNETCORE_URLS=http://0.0.0.0:$PORT
 
 COPY --from=build /app/publish .
 
-EXPOSE 5000
 EXPOSE 8080
+EXPOSE 5000
 
 ENTRYPOINT ["dotnet", "API.dll"]
