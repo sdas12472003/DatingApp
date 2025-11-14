@@ -2,16 +2,17 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# Copy csproj (it's in repo root, not inside /API!)
-COPY API.csproj .
+# Copy the project file from the API folder (adjusted path)
+COPY API/API.csproj ./API/
 
 # Restore
-RUN dotnet restore API.csproj
+RUN dotnet restore ./API/API.csproj
 
-# Copy everything else
+# Copy everything
 COPY . .
 
 # Publish
+WORKDIR /src/API
 RUN dotnet publish -c Release -o /app/publish
 
 
@@ -19,6 +20,7 @@ RUN dotnet publish -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
+# Render provides PORT in env
 ENV ASPNETCORE_URLS=http://0.0.0.0:$PORT
 
 COPY --from=build /app/publish .
