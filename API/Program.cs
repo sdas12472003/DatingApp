@@ -1,74 +1,4 @@
 
-using API;
-using API.Data;
-using API.Entities;
-using API.Extensions;
-using API.SignalR;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddApplicationServices(builder.Configuration);
-builder.Services.AddIdentityServices(builder.Configuration);
-var app = builder.Build();
-
-
-app.UseMiddleware<ExceptionMiddleware>();
-// app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-// .WithOrigins("http://localhost:4200", "https://localhost:4200","https://dating-app-f8z6.onrender.com"));
-app.UseCors(x => x
-    .AllowAnyHeader()
-    .AllowAnyMethod()
-    .AllowCredentials()
-    .WithOrigins(
-        "http://localhost:4200",
-        "https://localhost:4200",
-        "https://dating-app-f8z6.onrender.com"
-    )
-);
-
-
-// app.UseMiddleware<ExceptionMiddleware>();
-// app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-// .WithOrigins("http://localhost:4200", "https://localhost:4200"));
-
-app.UseAuthentication();
-app.UseAuthorization();
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
-
-app.MapControllers();
-app.MapHub<PresenceHub>("hubs/presence");
-app.MapHub<MessageHub>("hubs/message");
-app.MapFallbackToController("Index", "Fallback");
-
-
-using var scope = app.Services.CreateScope();
-var services=scope.ServiceProvider;
-try
-{
-    var context = services.GetRequiredService<DataContext>();
-    var userManager = services.GetRequiredService<UserManager<AppUser>>();
-    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
-    await context.Database.MigrateAsync();
-    await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
-    // await context.Database.ExecuteSqlRawAsync("DELETE FROM \"Connections\"");
-    await Seed.SeedUsers(userManager, roleManager);
-}
-catch (Exception ex)
-{
-    var logger = services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "An error occurred during migration");
-}
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-app.Urls.Add($"http://0.0.0.0:{port}");
-
-app.Run();
-
 // using API;
 // using API.Data;
 // using API.Entities;
@@ -80,56 +10,53 @@ app.Run();
 
 // var builder = WebApplication.CreateBuilder(args);
 
-// // Add services
+// // Add services to the container.
 // builder.Services.AddApplicationServices(builder.Configuration);
 // builder.Services.AddIdentityServices(builder.Configuration);
-
-// // TEMPORARY: use localhost CORS until Angular deploys
-// builder.Services.AddCors(opt =>
-// {
-//     opt.AddPolicy("AllowAngular", policy =>
-//     {
-//         policy.AllowAnyHeader()
-//               .AllowAnyMethod()
-//               .AllowCredentials()
-//               .WithOrigins(
-//                    "http://localhost:4200",
-//                    "https://localhost:4200"
-//               );
-//     });
-// });
-
 // var app = builder.Build();
 
-// // Middleware
-// app.UseMiddleware<ExceptionMiddleware>();
 
-// // *** IMPORTANT: CORS must come before authentication ***
-// app.UseCors("AllowAngular");
+// app.UseMiddleware<ExceptionMiddleware>();
+// // app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+// // .WithOrigins("http://localhost:4200", "https://localhost:4200","https://dating-app-f8z6.onrender.com"));
+// app.UseCors(x => x
+//     .AllowAnyHeader()
+//     .AllowAnyMethod()
+//     .AllowCredentials()
+//     .WithOrigins(
+//         "http://localhost:4200",
+//         "https://localhost:4200",
+//         "https://dating-app-f8z6.onrender.com"
+//     )
+// );
+
+
+// // app.UseMiddleware<ExceptionMiddleware>();
+// // app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+// // .WithOrigins("http://localhost:4200", "https://localhost:4200"));
 
 // app.UseAuthentication();
 // app.UseAuthorization();
-
 // app.UseDefaultFiles();
 // app.UseStaticFiles();
+
 
 // app.MapControllers();
 // app.MapHub<PresenceHub>("hubs/presence");
 // app.MapHub<MessageHub>("hubs/message");
 // app.MapFallbackToController("Index", "Fallback");
 
-// // DB Migrations
-// using var scope = app.Services.CreateScope();
-// var services = scope.ServiceProvider;
 
+// using var scope = app.Services.CreateScope();
+// var services=scope.ServiceProvider;
 // try
 // {
 //     var context = services.GetRequiredService<DataContext>();
 //     var userManager = services.GetRequiredService<UserManager<AppUser>>();
 //     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
-
 //     await context.Database.MigrateAsync();
 //     await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
+//     // await context.Database.ExecuteSqlRawAsync("DELETE FROM \"Connections\"");
 //     await Seed.SeedUsers(userManager, roleManager);
 // }
 // catch (Exception ex)
@@ -137,9 +64,82 @@ app.Run();
 //     var logger = services.GetRequiredService<ILogger<Program>>();
 //     logger.LogError(ex, "An error occurred during migration");
 // }
-
-// // Render PORT binding
 // var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 // app.Urls.Add($"http://0.0.0.0:{port}");
 
 // app.Run();
+
+
+
+
+using API;
+using API.Data;
+using API.Entities;
+using API.Extensions;
+using API.SignalR;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+// Add services
+builder.Services.AddApplicationServices(builder.Configuration);
+builder.Services.AddIdentityServices(builder.Configuration);
+
+// ⭐ REGISTER CORS CORRECTLY
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials()
+              .WithOrigins(
+                    "http://localhost:4200",
+                    "https://localhost:4200",
+                    "https://dating-app-f8z6.onrender.com"   // your frontend
+              );
+    });
+});
+
+var app = builder.Build();
+
+// ⭐ CORS MUST BE RIGHT AFTER EXCEPTION MIDDLEWARE
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
+app.MapControllers();
+app.MapHub<PresenceHub>("hubs/presence");
+app.MapHub<MessageHub>("hubs/message");
+app.MapFallbackToController("Index", "Fallback");
+
+// DB Migration
+using var scope = app.Services.CreateScope();
+var services = scope.ServiceProvider;
+try
+{
+    var context = services.GetRequiredService<DataContext>();
+    var userManager = services.GetRequiredService<UserManager<AppUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
+    await context.Database.MigrateAsync();
+    await context.Database.ExecuteSqlRawAsync("DELETE FROM [Connections]");
+    await Seed.SeedUsers(userManager, roleManager);
+}
+catch (Exception ex)
+{
+    var logger = services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "An error occurred during migration");
+}
+
+// Render port binding
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://0.0.0.0:{port}");
+
+app.Run();
