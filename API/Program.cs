@@ -20,15 +20,16 @@ app.UseMiddleware<ExceptionMiddleware>();
 // app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
 // .WithOrigins("http://localhost:4200", "https://localhost:4200","https://dating-app-f8z6.onrender.com"));
 app.UseCors(x => x
-    .WithOrigins(
-        "http://localhost:4200",
-        "https://localhost:4200",
-        "https://dating-app-f8z6.onrender.com"   // <-- add your frontend URL exactly
-    )
     .AllowAnyHeader()
     .AllowAnyMethod()
     .AllowCredentials()
+    .WithOrigins(
+        "http://localhost:4200",
+        "https://localhost:4200",
+        "https://dating-app-f8z6.onrender.com"
+    )
 );
+
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
