@@ -18,7 +18,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
-.WithOrigins("http://localhost:4200", "https://localhost:4200"));
+.WithOrigins("http://localhost:4200", "https://localhost:4200","https://dating-app-f8z6.onrender.com"));
 
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowCredentials()
@@ -53,8 +53,8 @@ catch (Exception ex)
     var logger = services.GetRequiredService<ILogger<Program>>();
     logger.LogError(ex, "An error occurred during migration");
 }
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-app.Urls.Add($"http://0.0.0.0:{port}");
+// var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+// app.Urls.Add($"http://0.0.0.0:{port}");
 
 app.Run();
 
