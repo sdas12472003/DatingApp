@@ -98,10 +98,11 @@ builder.Services.AddCors(opt =>
               .WithOrigins(
                     "http://localhost:4200",
                     "https://localhost:4200",
-                    "https://dating-app-f8z6.onrender.com"   // your frontend
+                    "https://dating-app-f8z6.onrender.com"
               );
     });
 });
+
 
 var app = builder.Build();
 
